@@ -101,10 +101,10 @@ class Network(object):
 		:arg target: array of target values
 		"""
 		print (output)
-
-
+		
 		output = array(output)
-				target = array(target)
+		target = array(target)
+
 		assert len(output) == len(target)
 		for i in range(len(output)):
 			print ("output: " + output[i] + " target: " + target[i])
