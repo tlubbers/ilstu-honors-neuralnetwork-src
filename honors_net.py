@@ -123,7 +123,7 @@ class Network(object):
 
 		assert len(output) == len(target)
 
-		for i in range(len(output)):
+		# for i in range(len(output)):
 			# print (output[i])
 			# print (target[i])
 
