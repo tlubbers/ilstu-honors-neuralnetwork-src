@@ -15,6 +15,7 @@ from pybrain.tools.xml.networkreader import NetworkReader
 from pybrain.tools.validation import CrossValidator
 from pybrain.tools.validation import CrossValidator
 from pybrain.tools.validation import ModuleValidator
+from pybrain.tools.validation import Validator
 
 import csv
 from numpy import sum,array, array_split, apply_along_axis, concatenate, ones, dot, delete, append, zeros, argmax
@@ -47,8 +48,6 @@ class Network(object):
 				self.net.addConnection(FullConnection(layers[i-1], layers[i]))
 
 		self.net.sortModules()
-
-		# self.net = buildNetwork(input_size, 3, output_size, bias=net_bias)
 		self.input_size = input_size
 		self.output_size = output_size
 
@@ -87,14 +86,8 @@ class Network(object):
 		return self.net.activate(input_data)
 
 	def cross_vaildate(self):
-		# creates a crossvalidator instance
-		# cv=CrossValidator(valfunc=self.MyValidate, trainer=self.trainer, dataset=self.ds, n_folds=5) 
-		
-		# calls the validate() function in CrossValidator to return results
-		# print (CrossValidator.validate(cv)) 
-    
-		n_folds = 3
-		max_epochs = None
+		n_folds = 5
+		max_epochs = 20
 		l = self.ds.getLength()
 		inp = self.ds.getField("input")
 		tar = self.ds.getField("target")
@@ -122,7 +115,7 @@ class Network(object):
 			train_ds.setField("input"  , inp[train_idxs])
 			train_ds.setField("target" , tar[train_idxs])
 			temp_trainer = copy.deepcopy(self.trainer)
-			temp_trainer .setData(train_ds)
+			temp_trainer.setData(train_ds)
 			if not max_epochs:
 				temp_trainer.train()
 			else:
@@ -133,35 +126,31 @@ class Network(object):
 			test_ds.setField("input"  , inp[test_idxs])
 			test_ds.setField("target" , tar[test_idxs])
 
-			perf += self.myCalculatePerformance(temp_trainer.module, test_ds)
+			perf += self.myCalculatePerformance(temp_trainer, test_ds)
 
 		perf /= n_folds
 		return perf
 
-	def myCalculatePerformance(self, module, dataset):
+	def myCalculatePerformance(self, trainer, dataset):
+		# compute outputs 
+		output = []
+		for row in array(dataset.getField('input')):
+			output.append(trainer.module.activate(row))
 
-		output = array(ModuleValidator.calculateModuleOutput(module, dataset))
 		target = array(dataset.getField('target'))
 
-		print (output)
-
-		assert len(output) == len(target)
-		n_correct = sum(output == target)
-		# return float(n_correct) / float(len(output))
-
-
-		return 1
+		# compute and return the mean square error
+		return Validator.MSE(output=output, target=target, )
 
 
 def main():
-	DemNetwork = Network(input_size=69, output_size=4,number_of_layers=3, net_bias=True)
-	RepNetwork = Network(input_size=69, output_size=10,number_of_layers=3, net_bias=True)
+	DemNetwork = Network(input_size=69, output_size=2,number_of_layers=3, net_bias=True)
+	RepNetwork = Network(input_size=69, output_size=5,number_of_layers=3, net_bias=True)
 
 	DemNetwork.prepare_trainer("final_dem.csv")
 	DemNetwork.train(False)
 	# DemNetwork.save("/Users/ducatirx8/Documents/AINeuralNetwork/ilstu-honors-neuralnetwork-src/demNetwork")
-	DemNetwork.cross_vaildate()
-
+	print (DemNetwork.cross_vaildate())
 	# print(network.query([50756,37,14613,19347,5876,1947,49584,18,476,191,26030,7,9,96,31,175,10,10,65,37,60,4,88,2969,24132,8,116,3,367,1156,109,29938,9923,264,235,15980,17577,13.7,1310,15064,1261,979,811,835,1139,905,1089,964,931,1661,1950,2760,1317,825,605,256,14597,1553,53081,11.2,54571,10900,91.8,26569,28002,42154,9643,232,474]))
 
 if __name__ == "__main__":
