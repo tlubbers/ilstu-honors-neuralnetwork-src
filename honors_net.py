@@ -80,49 +80,70 @@ class Network(object):
 
 	def cross_vaildate(self):
 		# creates a crossvalidator instance
-		cv=CrossValidator(valfunc=self.MyValidate, trainer=self.trainer, dataset=self.ds, n_folds=5) 
+		# cv=CrossValidator(valfunc=self.MyValidate, trainer=self.trainer, dataset=self.ds, n_folds=5) 
 		
 		# calls the validate() function in CrossValidator to return results
-		print (CrossValidator.validate(cv)) 
+		# print (CrossValidator.validate(cv)) 
+    
+        n_folds = 3
+        max_epochs = None
+        l = self.ds.getLength()
+        inp = self.ds.getField("input")
+        tar = self.ds.getField("target")
+        indim = self.ds.indim
+        outdim = self.ds.outdim
+        assert l > n_folds
 
-	def MyValidate(self, module, dataset):
-		""" Abstract validate function, that is heavily used by this class.
-		First, it calculates the module's output on the dataset.
-		In advance, it compares the output to the target values of the dataset
-		through the valfunc function and returns the result.
+        perms = array_split(permutation(l), n_folds)
 
-		:arg valfunc: A function expecting arrays for output, target and
-		importance (optional). See Validator.MSE for an example.
-		:arg module:  Object of any subclass of pybrain's Module type
-		:arg dataset: Dataset object at least containing the fields
-		'input' and 'target' (for example SupervisedDataSet)
-		"""
-		target = dataset.getField('target')
-		output = ModuleValidator.calculateModuleOutput(module, dataset)
-		for o in output:
-			print o
+        perf = 0.
+        for i in range(n_folds):
+            # determine train indices
+            train_perms_idxs = list(range(n_folds))
+            train_perms_idxs.pop(i)
+            temp_list = []
+            for train_perms_idx in train_perms_idxs:
+                temp_list.append(perms[ train_perms_idx ])
+            train_idxs = concatenate(temp_list)
 
-		return 0
-		# return self.myClassificationPerformance(output, target)
+            # determine test indices
+            test_idxs = perms[i]
+
+            # train
+            train_ds = SupervisedDataSet(indim, outdim)
+            train_ds.setField("input"  , inp[train_idxs])
+            train_ds.setField("target" , tar[train_idxs])
+            temp_trainer = copy.deepcopy(self.trainer)
+            temp_trainer .setData(train_ds)
+            if not max_epochs:
+                temp_trainer.train()
+            else:
+                temp_trainer.trainEpochs(max_epochs)
+
+            # test
+            test_ds = SupervisedDataSet(indim, outdim)
+            test_ds.setField("input"  , inp[test_idxs])
+            test_ds.setField("target" , tar[test_idxs])
+
+            perf += self.myCalculatePerformance(temp_trainer.module, test_ds)
+
+        perf /= n_folds
+        return perf
+
+	def myCalculatePerformance(self, module, dataset)):
+
+        output = array(ModuleValidator.calculateModuleOutput(module, dataset))
+		target = array(dataset.getField('target'))
+
+		print (target)
+
+        assert len(output) == len(target)
+        n_correct = sum(output == target)
+        # return float(n_correct) / float(len(output))
 
 
-	def myClassificationPerformance(self, output, target):
-		""" Returns the hit rate of the outputs compared to the targets.
+		return 1
 
-		:arg output: array of output values
-		:arg target: array of target values
-		"""
-		output = array(output)
-		target = array(target)
-
-		assert len(output) == len(target)
-
-		for i in range(len(output)):
-			print (output[i])
-			# print (target[i])
-
-		n_correct = sum(output == target)
-		return float(n_correct) / float(len(output))
 
 def main():
 	network = Network(input_size=69, output_size=4,number_of_layers=3, net_bias=True)
