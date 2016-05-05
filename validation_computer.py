@@ -2,7 +2,9 @@ import sys
 from honors_net import Network 
 
 def main():
-	if len(sys.argv) != 2:
+	print (len(sys.argv))
+
+	if len(sys.argv) != 3:
 		print ("format: <filename> <# of outputs>")
 		exit() 
 
