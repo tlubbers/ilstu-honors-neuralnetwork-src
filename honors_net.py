@@ -3,8 +3,12 @@ from pybrain.structure import LinearLayer, SigmoidLayer
 from pybrain.structure import FullConnection
 from pybrain.datasets import SupervisedDataSet
 from pybrain.supervised.trainers import BackpropTrainer
-import csv
+from pybrain.tools.shortcuts import buildNetwork
+from pybrain.tools.xml.networkwriter import NetworkWriter
+from pybrain.tools.xml.networkreader import NetworkReader
+from pybrain.tools.validation import CrossValidator
 
+import csv
 
 class Network(object):
 	def __init__(self, input_size, output_size, number_of_layers=3, size_of_hidden_layers=3, type_of_hidden_layer='sigmoid', net_bias=False):
@@ -37,7 +41,13 @@ class Network(object):
 		self.input_size = input_size
 		self.output_size = output_size
 
-	def train(self, filedir, convergance):
+	def load(self, filedir):
+		self.net = NetworkReader.readFrom(filedir)
+
+	def save(self, filedir):
+		NetworkWriter.writeToFile(self.net, filedir)
+
+	def prepare_trainer(self, filedir):
 		# initialize the data set 
 		self.ds = SupervisedDataSet(self.input_size, self.output_size)
 		
@@ -54,85 +64,33 @@ class Network(object):
 				self.ds.addSample(input_data, output_data)
 
 		# uses backpropegation to create a trainer 
-		trainer = BackpropTrainer(self.net, self.ds)  
-		if convergance:
-			trainer.trainUntilConvergence()
-		else:
-			trainer.train()
+		self.trainer = BackpropTrainer(self.net, self.ds)  
 
+	def train(self, convergance):
+		if convergance:
+			self.trainer.trainUntilConvergence()
+		else:
+			self.trainer.train()
 
 	def query(self, input_data):
 		return self.net.activate(input_data)
 
+	def cross_vaildate(self):
+		# creates a crossvalidator instance
+		cv=CrossValidator(trainer=self.trainer, dataset=self.ds, n_folds=5) 
+
+		# calls the validate() function in CrossValidator to return results
+		print (CrossValidator.validate(cv)) 
+
+
+
 def main():
 	network = Network(input_size=69, output_size=10,number_of_layers=3, net_bias=True)
-	network.train("Network_Data/final_rep.csv", False)
-	print(network.query([50756,37,14613,19347,5876,1947,49584,18,476,191,26030,7,9,96,31,175,10,10,65,37,60,4,88,2969,24132,8,116,3,367,1156,109,29938,9923,264,235,15980,17577,13.7,1310,15064,1261,979,811,835,1139,905,1089,964,931,1661,1950,2760,1317,825,605,256,14597,1553,53081,11.2,54571,10900,91.8,26569,28002,42154,9643,232,474]))
+	network.prepare_trainer("final_rep.csv")
+	network.cross_vaildate()
+
+
+	# print(network.query([50756,37,14613,19347,5876,1947,49584,18,476,191,26030,7,9,96,31,175,10,10,65,37,60,4,88,2969,24132,8,116,3,367,1156,109,29938,9923,264,235,15980,17577,13.7,1310,15064,1261,979,811,835,1139,905,1089,964,931,1661,1950,2760,1317,825,605,256,14597,1553,53081,11.2,54571,10900,91.8,26569,28002,42154,9643,232,474]))
 
 if __name__ == "__main__":
 	main()
-
-
-
-		# self.ds = SupervisedDataSet(self.input_size, self.output_size)  # 2 input, 1 output
-
-		# # for each example in the file 
-		# for line in open(filedir,"r").read().split('\n'):
-		# 	line_list = line.split(',')
-
-		# 	input_data = tuple(line_list[self.input_size+1:])
-		# 	output_data = tuple(line_list[:self.input_size]) 
-		# 	self.ds.addSample(input_data, output_data)
-
-
-# initiallize a default network
-
-# net = buildNetwork(3, 3, 1)
-
-# # it has random values so it can already be used!
-# print(net.activate([20000,1, 1]))
-
-# # run data through the network s 
-# net.activate([20000,1, 1])
-
-# # inspect different layers of the network
-# print(net['in'])
-# net['hidden0']
-# net['out']
-
-# there are different types of layers, by default it is uses the sigmoid squashing function
-# from pybrain.structure import TanhLayer
-# net = buildNetwork(2, 3, 1, hiddenclass=TanhLayer)
-
-# # from pybrain.structure import SoftmaxLayer
-# # net = buildNetwork(2, 3, 2, hiddenclass=TanhLayer, outclass=SoftmaxLayer)
-
-# # building dataset
-
-
-# # adding samples
-# ds.addSample((0, 0), (0,1))
-# ds.addSample((0, 1), (1,))
-# ds.addSample((1, 0), (1,))
-# ds.addSample((1, 1), (0,))
-
-# len(ds)  # they have lengths
-
-# # and can be iterated through
-# for inpt, target in ds:
-#     print(inpt, target)
-
-# # clearing dataset
-# ds.clear()
-
-# # Training
-# from pybrain.supervised.trainers 
-
-# # use trainer to link dataset and network
-# net = buildNetwork(2, 3, 1, bias=True, hiddenclass=TanhLayer)
-# trainer = BackpropTrainer(net, ds)  # uses backpropegation
-
-# # train!
-# trainer.train()
-
-
