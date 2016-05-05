@@ -1,5 +1,5 @@
 import sys
-import Network from honors_net
+from honors_net import Network 
 
 def main():
 	if len(sys.argv) != 2:
