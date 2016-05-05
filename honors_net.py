@@ -7,8 +7,11 @@ from pybrain.tools.shortcuts import buildNetwork
 from pybrain.tools.xml.networkwriter import NetworkWriter
 from pybrain.tools.xml.networkreader import NetworkReader
 from pybrain.tools.validation import CrossValidator
+from pybrain.tools.validation import CrossValidator
+from pybrain.tools.validation import ModuleValidator
 
 import csv
+from numpy import sum
 
 class Network(object):
 	def __init__(self, input_size, output_size, number_of_layers=3, size_of_hidden_layers=3, type_of_hidden_layer='sigmoid', net_bias=False):
@@ -81,15 +84,30 @@ class Network(object):
 	def cross_vaildate(self):
 		# creates a crossvalidator instance
 		# print (ModuleValidator.validate(, module=self.net, dataset=self.ds))
-		print (ModuleValidator.MSE(module=self.net, dataset=self.ds))
+		# print (ModuleValidator.MSE(module=self.net, dataset=self.ds))
 		# cv = CrossValidator(trainer=self.trainer, dataset=self.ds, n_folds=5) 
 		# print (CrossValidator.validate(cv))
 		# calls the validate() function in CrossValidator to return results
 		# print (ModuleValidator.MSE(module=self.net,dataset=self.ds)) 
 		# creates a crossvalidator instance
-		# cv=CrossValidator(trainer=self.trainer, dataset=self.ds, n_folds=5) 
+		cv=CrossValidator(valfunc=self.myClassificationPerformance, trainer=self.trainer, dataset=self.ds, n_folds=5) 
 		# calls the validate() function in CrossValidator to return results
-		# print (CrossValidator.validate(cv)) 
+		print (CrossValidator.validate(cv)) 
+
+    def myClassificationPerformance(cls, output, target):
+        """ Returns the hit rate of the outputs compared to the targets.
+
+            :arg output: array of output values
+            :arg target: array of target values
+        """
+        output = array(output)
+        target = array(target)
+        assert len(output) == len(target)
+        for i in range(len(output)):
+        	print ("output: " + output[i] + " target: " + target[i])
+
+        n_correct = sum(output == target)
+        return float(n_correct) / float(len(output))
 
 def main():
 	network = Network(input_size=69, output_size=10,number_of_layers=3, net_bias=True)
