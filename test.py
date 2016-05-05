@@ -22,6 +22,7 @@ def main(county, dirPath, isDemocrat):
 			network = Network(input_size=69, output_size=4,number_of_layers=3, net_bias=True)
 			network.load(PathToDemXML)
 			output = network.query(data)
+			print data
 		else:
 			PathToRepubXML = ""
 			network = Network(input_size=69, output_size=4,number_of_layers=3, net_bias=True)
@@ -31,7 +32,7 @@ def main(county, dirPath, isDemocrat):
 
 
 if __name__ == "__main__":
-	main("Autauga, AL", "/Users/ducatirx8/Documents/AINeuralNetwork/ilstu-honors-neuralnetwork-src/final_data.csv", True)
+	main("Baldwin, AL", "/Users/ducatirx8/Documents/AINeuralNetwork/ilstu-honors-neuralnetwork-src/final_data.csv", True)
 
 
 
