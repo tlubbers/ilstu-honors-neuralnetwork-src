@@ -94,20 +94,20 @@ class Network(object):
 		# calls the validate() function in CrossValidator to return results
 		print (CrossValidator.validate(cv)) 
 
-    def myClassificationPerformance(cls, output, target):
-        """ Returns the hit rate of the outputs compared to the targets.
+	def myClassificationPerformance(cls, output, target):
+		""" Returns the hit rate of the outputs compared to the targets.
 
-            :arg output: array of output values
-            :arg target: array of target values
-        """
-        output = array(output)
-        target = array(target)
-        assert len(output) == len(target)
-        for i in range(len(output)):
-        	print ("output: " + output[i] + " target: " + target[i])
+		:arg output: array of output values
+		:arg target: array of target values
+		"""
+		output = array(output)
+		target = array(target)
+		assert len(output) == len(target)
+		for i in range(len(output)):
+		print ("output: " + output[i] + " target: " + target[i])
 
-        n_correct = sum(output == target)
-        return float(n_correct) / float(len(output))
+		n_correct = sum(output == target)
+		return float(n_correct) / float(len(output))
 
 def main():
 	network = Network(input_size=69, output_size=10,number_of_layers=3, net_bias=True)
