@@ -4,8 +4,14 @@ from pybrain.structure import FullConnection
 from pybrain.datasets import SupervisedDataSet
 from pybrain.supervised.trainers import BackpropTrainer
 from pybrain.tools.shortcuts import buildNetwork
-from pybrain.tools.xml.networkwriter import NetworkWriter
-from pybrain.tools.xml.networkreader import NetworkReader
+# 
+# from pybrain.tools.xml.networkwriter import NetworkWriter
+# from pybrain.tools.xml.networkreader import NetworkReader
+# If you are getting no module found errors comment out the bottom 2 and try the above.
+
+from pybrain.tools.customxml.networkwriter import NetworkWriter
+from pybrain.tools.customxml.networkreader import NetworkReader
+
 from pybrain.tools.validation import CrossValidator
 from pybrain.tools.validation import CrossValidator
 from pybrain.tools.validation import ModuleValidator
@@ -131,8 +137,13 @@ class Network(object):
 		return float(n_correct) / float(len(output))
 
 def main():
-	network = Network(input_size=69, output_size=4,number_of_layers=3, net_bias=True)
-	network.prepare_trainer("final_dem.csv")
+	DemNetwork = Network(input_size=69, output_size=4,number_of_layers=3, net_bias=True)
+	RepNetwork = Network(input_size=69, output_size=10,number_of_layers=3, net_bias=True)
+
+	DemNetwork.prepare_trainer("final_dem.csv")
+	DemNetwork.train(False)
+	# DemNetwork.save("/Users/ducatirx8/Documents/AINeuralNetwork/ilstu-honors-neuralnetwork-src/demNetwork")
+
 	# network.cross_vaildate()
 
 
