@@ -65,7 +65,7 @@ class Network(object):
 
 				# add to dataset
 				self.ds.addSample(input_data, output_data)
-				
+
 		# uses backpropegation to create a trainer 
 		self.trainer = BackpropTrainer(self.net, self.ds)  
 
@@ -80,12 +80,16 @@ class Network(object):
 
 	def cross_vaildate(self):
 		# creates a crossvalidator instance
-		cv=CrossValidator(trainer=self.trainer, dataset=self.ds, n_folds=5) 
-
+		# print (ModuleValidator.validate(, module=self.net, dataset=self.ds))
+		print (ModuleValidator.MSE(module=self.net, dataset=self.ds))
+		# cv = CrossValidator(trainer=self.trainer, dataset=self.ds, n_folds=5) 
+		# print (CrossValidator.validate(cv))
 		# calls the validate() function in CrossValidator to return results
-		print (CrossValidator.validate(cv)) 
-
-
+		# print (ModuleValidator.MSE(module=self.net,dataset=self.ds)) 
+		# creates a crossvalidator instance
+		# cv=CrossValidator(trainer=self.trainer, dataset=self.ds, n_folds=5) 
+		# calls the validate() function in CrossValidator to return results
+		# print (CrossValidator.validate(cv)) 
 
 def main():
 	network = Network(input_size=69, output_size=10,number_of_layers=3, net_bias=True)
