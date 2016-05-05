@@ -1,5 +1,5 @@
 from pybrain.structure import FeedForwardNetwork
-from pybrain.structure import LinearLayer, SigmoidLayer
+from pybrain.structure import LinearLayer, SigmoidLayer, TanhLayer
 from pybrain.structure import FullConnection
 from pybrain.datasets import SupervisedDataSet
 from pybrain.supervised.trainers import BackpropTrainer
