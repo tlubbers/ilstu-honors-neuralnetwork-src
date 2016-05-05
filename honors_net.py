@@ -143,7 +143,7 @@ class Network(object):
 		output = array(ModuleValidator.calculateModuleOutput(module, dataset))
 		target = array(dataset.getField('target'))
 
-		print (target)
+		print (ouput)
 
 		assert len(output) == len(target)
 		n_correct = sum(output == target)
