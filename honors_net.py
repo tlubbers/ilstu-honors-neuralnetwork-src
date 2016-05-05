@@ -136,7 +136,7 @@ class Network(object):
 		perf /= n_folds
 		return perf
 
-	def myCalculatePerformance(self, module, dataset)):
+	def myCalculatePerformance(self, module, dataset):
 
 		output = array(ModuleValidator.calculateModuleOutput(module, dataset))
 		target = array(dataset.getField('target'))
