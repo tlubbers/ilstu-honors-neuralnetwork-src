@@ -104,7 +104,7 @@ class Network(object):
 		target = array(target)
 		assert len(output) == len(target)
 		for i in range(len(output)):
-		print ("output: " + output[i] + " target: " + target[i])
+			print ("output: " + output[i] + " target: " + target[i])
 
 		n_correct = sum(output == target)
 		return float(n_correct) / float(len(output))
