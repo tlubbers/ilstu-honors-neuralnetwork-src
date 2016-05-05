@@ -18,7 +18,10 @@ def main():
 			for h in range(1,4): 
 				network = Network(input_size=69, output_size=os,number_of_layers=h+2, type_of_hidden_layer=t, net_bias=True, epochs=x)
 				network.prepare_trainer(filedir)
-				output_file.write(t + "," + h + "," + e "," + network.cross_vaildate() + "\n")
+				output_file.write(t + "," + h + "," + e + "," + network.cross_vaildate() + "\n")
+				print ("tick")
+			print ("tock")
+		print ("tuck")
 		x += 100
 
 if __name__ == "__main__":
