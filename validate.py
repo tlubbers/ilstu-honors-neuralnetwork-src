@@ -21,7 +21,7 @@ def main():
 				network = Network(input_size=69, output_size=os,number_of_layers=h+2, type_of_hidden_layer=t, net_bias=True, epochs=x)
 				network.prepare_trainer(filedir)
 				output_file.write(t + ",")
-				output_file.write(str(h)
+				output_file.write(str(h))
 				output_file.write(",")
 				output_file.write(str(x))
 				output_file.write(",")
