@@ -54,15 +54,18 @@ class Network(object):
 		# train on data 
 		with open(filedir, 'rt') as csvfile:
 			reader = csv.reader(csvfile, delimiter=',')
+
 			# reader.pop()
 			for row in reader:
+				print ( row[(self.input_size):(self.input_size+self.output_size)])
+				# print(row[1:(self.input_size+1)])
 				# format data
-				input_data = tuple(map(float, row[2:(self.input_size+2)]))
-				output_data = tuple(map(float, row[(self.input_size+2):((self.input_size+2)+self.output_size)]))
+				input_data = tuple(map(float, row[1:(self.input_size+1)]))
+				output_data = tuple(map(float, row[(self.input_size):(self.input_size+self.output_size)]))
 
 				# add to dataset
 				self.ds.addSample(input_data, output_data)
-
+				
 		# uses backpropegation to create a trainer 
 		self.trainer = BackpropTrainer(self.net, self.ds)  
 
