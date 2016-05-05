@@ -9,7 +9,7 @@ def main():
 		exit() 
 
 	filedir = sys.argv[0]
-	os = sys.argv[1]
+	os = int(sys.argv[1])
 	output_file = open (filedir + "_validations.csv", "wt")
 	
 	funct_types = ['sigmoid','tanh']
