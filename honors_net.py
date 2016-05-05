@@ -23,9 +23,9 @@ from numpy.random import permutation
 import copy
 
 class Network(object):
-	def __init__(self, input_size, output_size, number_of_layers=3, size_of_hidden_layers=3, type_of_hidden_layer='sigmoid', net_bias=False):
+	def __init__(self, input_size, output_size, number_of_layers=3, size_of_hidden_layers=3, type_of_hidden_layer='sigmoid', net_bias=False, epochs=100):
 		self.net = FeedForwardNetwork()
-
+		self.num_epochs = epochs
 		# set up layers of the network
 		layers = []
 
@@ -80,14 +80,15 @@ class Network(object):
 		if convergance:
 			self.trainer.trainUntilConvergence()
 		else:
-			self.trainer.train()
+			self.trainer.trainEpochs(self.num_epochs)
+
 
 	def query(self, input_data):
 		return self.net.activate(input_data)
 
 	def cross_vaildate(self):
 		n_folds = 5
-		max_epochs = 20
+		max_epochs = self.num_epochs
 		l = self.ds.getLength()
 		inp = self.ds.getField("input")
 		tar = self.ds.getField("target")
