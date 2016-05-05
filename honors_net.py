@@ -109,11 +109,7 @@ class Network(object):
 		target = dataset.getField('target')
 		output = ModuleValidator.calculateModuleOutput(module, dataset)
 
-		if isinstance(dataset, ImportanceDataSet):
-			importance = dataset.getField('importance')
-			return self.myClassificationPerformance(output, target, importance)
-		else:
-			return self.myClassificationPerformance(output, target)
+		return self.myClassificationPerformance(output, target)
 
 
 	def myClassificationPerformance(self, output, target):
