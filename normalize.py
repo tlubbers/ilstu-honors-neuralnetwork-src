@@ -21,18 +21,44 @@ def openData(filedir):
 		yCounter = 0
 		# print allData
 		for row in allData:
-			for col in row:
-				# Skip the countyname
-				if yCounter > 0:
-					if arrayOfMaxes[yCounter] < float(col):
-						arrayOfMaxes[yCounter] = col
-					if arrayOfMins[yCounter] > float(col):
-						arrayOfMins[yCounter] = col
-				yCounter +=1
-			yCounter = 0
+			# skip the headers of each column 
+			if xCounter > 0:
+				for col in row:
+					# Skip the countyname
+					if yCounter > 0:
+						if arrayOfMaxes[yCounter] < float(col):
+							arrayOfMaxes[yCounter] = float(col)
+						if arrayOfMins[yCounter] > float(col):
+							arrayOfMins[yCounter] = float(col)
+					yCounter +=1
+				yCounter = 0
 			xCounter += 1
-		print arrayOfMaxes
-		print arrayOfMins
+
+		newfile = open("normalized_final_data.csv", 'wt')		
+
+		yCounter = 0
+		for row in allData:
+			if xCounter == 0:
+				for y in row:
+					newfile.write(y+',')
+			else:
+				for col in row:
+					if yCounter == 0:
+						newfile.write('\"'+col+'\",')
+					# Skip the countyname
+					else:
+						xi = (float(col) - arrayOfMins[yCounter]) / (arrayOfMaxes[yCounter] - arrayOfMins[yCounter])
+						newfile.write(str(xi))
+						newfile.write(",")
+					yCounter +=1
+				yCounter = 0
+			xCounter += 1
+			newfile.write('\n')
+					
+
+		newfile.close()
+		# print (arrayOfMaxes)
+		# print (arrayOfMins)
 		
 
 def main(filedir):
@@ -42,8 +68,8 @@ def main(filedir):
 
 
 if __name__ == "__main__":
-	main("/Users/ducatirx8/Documents/AINeuralNetwork/ilstu-honors-neuralnetwork-src/final_data.csv")
-
+	# main("/Users/ducatirx8/Documents/AINeuralNetwork/ilstu-honors-neuralnetwork-src/final_data.csv")
+	main("final_data.csv")
 
 
 
