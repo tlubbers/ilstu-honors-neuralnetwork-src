@@ -85,61 +85,61 @@ class Network(object):
 		# calls the validate() function in CrossValidator to return results
 		# print (CrossValidator.validate(cv)) 
     
-        n_folds = 3
-        max_epochs = None
-        l = self.ds.getLength()
-        inp = self.ds.getField("input")
-        tar = self.ds.getField("target")
-        indim = self.ds.indim
-        outdim = self.ds.outdim
-        assert l > n_folds
+		n_folds = 3
+		max_epochs = None
+		l = self.ds.getLength()
+		inp = self.ds.getField("input")
+		tar = self.ds.getField("target")
+		indim = self.ds.indim
+		outdim = self.ds.outdim
+		assert l > n_folds
 
-        perms = array_split(permutation(l), n_folds)
+		perms = array_split(permutation(l), n_folds)
 
-        perf = 0.
-        for i in range(n_folds):
-            # determine train indices
-            train_perms_idxs = list(range(n_folds))
-            train_perms_idxs.pop(i)
-            temp_list = []
-            for train_perms_idx in train_perms_idxs:
-                temp_list.append(perms[ train_perms_idx ])
-            train_idxs = concatenate(temp_list)
+		perf = 0.
+		for i in range(n_folds):
+			# determine train indices
+			train_perms_idxs = list(range(n_folds))
+			train_perms_idxs.pop(i)
+			temp_list = []
+			for train_perms_idx in train_perms_idxs:
+			temp_list.append(perms[ train_perms_idx ])
+			train_idxs = concatenate(temp_list)
 
-            # determine test indices
-            test_idxs = perms[i]
+			# determine test indices
+			test_idxs = perms[i]
 
-            # train
-            train_ds = SupervisedDataSet(indim, outdim)
-            train_ds.setField("input"  , inp[train_idxs])
-            train_ds.setField("target" , tar[train_idxs])
-            temp_trainer = copy.deepcopy(self.trainer)
-            temp_trainer .setData(train_ds)
-            if not max_epochs:
-                temp_trainer.train()
-            else:
-                temp_trainer.trainEpochs(max_epochs)
+			# train
+			train_ds = SupervisedDataSet(indim, outdim)
+			train_ds.setField("input"  , inp[train_idxs])
+			train_ds.setField("target" , tar[train_idxs])
+			temp_trainer = copy.deepcopy(self.trainer)
+			temp_trainer .setData(train_ds)
+			if not max_epochs:
+			temp_trainer.train()
+			else:
+			temp_trainer.trainEpochs(max_epochs)
 
-            # test
-            test_ds = SupervisedDataSet(indim, outdim)
-            test_ds.setField("input"  , inp[test_idxs])
-            test_ds.setField("target" , tar[test_idxs])
+			# test
+			test_ds = SupervisedDataSet(indim, outdim)
+			test_ds.setField("input"  , inp[test_idxs])
+			test_ds.setField("target" , tar[test_idxs])
 
-            perf += self.myCalculatePerformance(temp_trainer.module, test_ds)
+			perf += self.myCalculatePerformance(temp_trainer.module, test_ds)
 
-        perf /= n_folds
-        return perf
+		perf /= n_folds
+		return perf
 
 	def myCalculatePerformance(self, module, dataset)):
 
-        output = array(ModuleValidator.calculateModuleOutput(module, dataset))
+		output = array(ModuleValidator.calculateModuleOutput(module, dataset))
 		target = array(dataset.getField('target'))
 
 		print (target)
 
-        assert len(output) == len(target)
-        n_correct = sum(output == target)
-        # return float(n_correct) / float(len(output))
+		assert len(output) == len(target)
+		n_correct = sum(output == target)
+		# return float(n_correct) / float(len(output))
 
 
 		return 1
