@@ -90,23 +90,43 @@ class Network(object):
 		# calls the validate() function in CrossValidator to return results
 		# print (ModuleValidator.MSE(module=self.net,dataset=self.ds)) 
 		# creates a crossvalidator instance
-		cv=CrossValidator(valfunc=self.myClassificationPerformance, trainer=self.trainer, dataset=self.ds, n_folds=5) 
+		cv=CrossValidator(valfunc=self.MyCalidate, trainer=self.trainer, dataset=self.ds, n_folds=5) 
 		# calls the validate() function in CrossValidator to return results
 		print (CrossValidator.validate(cv)) 
 
-	def myClassificationPerformance(cls, output, target):
+	def MyCalidate(self, module, dataset):
+		""" Abstract validate function, that is heavily used by this class.
+		First, it calculates the module's output on the dataset.
+		In advance, it compares the output to the target values of the dataset
+		through the valfunc function and returns the result.
+
+		:arg valfunc: A function expecting arrays for output, target and
+		importance (optional). See Validator.MSE for an example.
+		:arg module:  Object of any subclass of pybrain's Module type
+		:arg dataset: Dataset object at least containing the fields
+		'input' and 'target' (for example SupervisedDataSet)
+		"""
+		target = dataset.getField('target')
+		output = ModuleValidator.calculateModuleOutput(module, dataset)
+
+		if isinstance(dataset, ImportanceDataSet):
+			importance = dataset.getField('importance')
+			return self.myClassificationPerformance(output, target, importance)
+		else:
+			return self.myClassificationPerformance(output, target)
+
+
+	def myClassificationPerformance(self, output, target):
 		""" Returns the hit rate of the outputs compared to the targets.
 
 		:arg output: array of output values
 		:arg target: array of target values
 		"""
-		
-		
 		output = array(output)
 		target = array(target)
 
-		print (target)
-		
+		print (output)
+
 		assert len(output) == len(target)
 		for i in range(len(output)):
 			print ("output: " + output[i] + " target: " + target[i])
