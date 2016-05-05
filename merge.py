@@ -4,7 +4,7 @@ def main():
 	rep = open("republicans.csv", "rt")
 	dem = open("democrats.csv", "rt")
 
-	final = open("final_data.csv", "rt")
+	final = open("normalized_final_data.csv", "rt")
 
 	final_rep = open ("final_rep.csv", "wt")
 	final_dem = open ("final_dem.csv", "wt")
