@@ -8,8 +8,8 @@ def main():
 		print ("format: <filename> <# of outputs>")
 		exit() 
 
-	filedir = sys.argv[0]
-	os = int(sys.argv[1])
+	filedir = sys.argv[1]
+	os = int(sys.argv[2])
 	output_file = open (filedir + "_validations.csv", "wt")
 	
 	funct_types = ['sigmoid','tanh']
