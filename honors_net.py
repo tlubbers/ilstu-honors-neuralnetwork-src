@@ -121,9 +121,8 @@ class Network(object):
 		output = array(output)
 		target = array(target)
 
-		print (output)
-
 		assert len(output) == len(target)
+
 		for i in range(len(output)):
 			print (output[i])
 			print (target[i])
@@ -132,8 +131,8 @@ class Network(object):
 		return float(n_correct) / float(len(output))
 
 def main():
-	network = Network(input_size=69, output_size=10,number_of_layers=3, net_bias=True)
-	network.prepare_trainer("final_rep.csv")
+	network = Network(input_size=69, output_size=4,number_of_layers=3, net_bias=True)
+	network.prepare_trainer("final_dem.csv")
 	network.cross_vaildate()
 
 
