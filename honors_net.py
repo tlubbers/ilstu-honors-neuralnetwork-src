@@ -60,7 +60,7 @@ class Network(object):
 
 			# reader.pop()
 			for row in reader:
-				print (row[(self.input_size+1):(self.input_size+self.output_size)])
+				print (row[(self.input_size+2):(len(row)-2)])
 				# print(row[1:(self.input_size+1)])
 				# format data
 				input_data = tuple(map(float, row[1:(self.input_size+1)]))
