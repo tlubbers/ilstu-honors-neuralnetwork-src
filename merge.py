@@ -24,6 +24,8 @@ def main():
 			if i[0] == j[0]:
 				rep_switcher = True
 				mylist = i + j[1:]
+				final_rep.write("\"" + mylist[0] + "\"")
+				del mylist[0] 
 				for s in mylist:
 					final_rep.write(s+",")
 				final_rep.write("\n")
@@ -32,14 +34,18 @@ def main():
 			if i[0] == k[0]:
 				dem_switcher = False
 				mylist = i + k[1:]
+				final_dem.write("\"" + mylist[0] + "\"")
+				del mylist[0] 
 				for s in mylist:
-					final_dem.write(s+",")
+					final_dem.write(','+s)
 				final_dem.write("\n")
 	
 		# not in either, not voted for yet 
 		if rep_switcher == False and dem_switcher == False:
+			final_unvoted.write("\"" + i[0] + "\"")
+			del i[0] 
 			for s in i:
-				final_unvoted.write(s+',')
+				final_unvoted.write(','+s)
 			final_unvoted.write("\n")
 
 	final_dem.close()
