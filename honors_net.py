@@ -58,10 +58,7 @@ class Network(object):
 		with open(filedir, 'rt') as csvfile:
 			reader = csv.reader(csvfile, delimiter=',')
 
-			# reader.pop()
 			for row in reader:
-				# print (row[(self.input_size+1):(len(row)-1)])
-				# print(row[1:(self.input_size+1)])
 				# format data
 				input_data = tuple(map(float, row[1:(self.input_size+1)]))
 				output_data = tuple(map(float, row[(self.input_size+1):(len(row)-1)]))
@@ -83,14 +80,8 @@ class Network(object):
 
 	def cross_vaildate(self):
 		# creates a crossvalidator instance
-		# print (ModuleValidator.validate(, module=self.net, dataset=self.ds))
-		# print (ModuleValidator.MSE(module=self.net, dataset=self.ds))
-		# cv = CrossValidator(trainer=self.trainer, dataset=self.ds, n_folds=5) 
-		# print (CrossValidator.validate(cv))
-		# calls the validate() function in CrossValidator to return results
-		# print (ModuleValidator.MSE(module=self.net,dataset=self.ds)) 
-		# creates a crossvalidator instance
 		cv=CrossValidator(valfunc=self.MyValidate, trainer=self.trainer, dataset=self.ds, n_folds=5) 
+		
 		# calls the validate() function in CrossValidator to return results
 		print (CrossValidator.validate(cv)) 
 
@@ -108,8 +99,11 @@ class Network(object):
 		"""
 		target = dataset.getField('target')
 		output = ModuleValidator.calculateModuleOutput(module, dataset)
+		for o in output:
+			print o
 
-		return self.myClassificationPerformance(output, target)
+		return 0
+		# return self.myClassificationPerformance(output, target)
 
 
 	def myClassificationPerformance(self, output, target):
@@ -124,8 +118,8 @@ class Network(object):
 		assert len(output) == len(target)
 
 		for i in range(len(output)):
-			#print (output[i])
-			print (target[i])
+			print (output[i])
+			# print (target[i])
 
 		n_correct = sum(output == target)
 		return float(n_correct) / float(len(output))
