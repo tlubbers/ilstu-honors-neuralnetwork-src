@@ -1,6 +1,46 @@
+import csv
 
 def main():
-	pass
+	with open('primary_results.csv', 'rt') as csvfile:
+		rep = open("republicans.csv", "wt")
+		dem = open("democrats.csv", "wt")
+
+		counter = 1
+
+		repub_line = ""
+		demo_line = ""
+
+		reader = csv.reader(csvfile, delimiter=',')
+		for row in reader:
+			if counter == 1:
+				repub_line += "\"" + row[2] + ", " + row[1] + "\"" + ","
+			elif counter == 6:
+				demo_line += "\"" + row[2] + ", " + row[1] + "\"" + ","
+				
+			if counter <= 5:
+				# do repub stuff
+				repub_line += row[6] + "," + row[7] + ","
+			elif counter <= 7:
+				# do democrat stuff
+				demo_line += row[6] + "," + row[7] + ","
+
+			# print (row)
+			counter += 1
+			
+			if counter > 7:
+				# write the created lines 
+				counter = 1
+				rep.write(repub_line+"\n")
+				dem.write(demo_line+"\n")
+				repub_line = ""
+				demo_line = ""
+
+
+		rep.close()
+		dem.close()
+
+
+
 # done AGE040209D # Resident population total (July 1 - estimate) 2009
 # done AGE050210D # Resident population: Median age (April 1 - complete count) 2010
 # done AGE270210D # Resident population under 18 years (April 1 - complete count) 2010
@@ -85,6 +125,27 @@ def main():
 # done POP250210D # Population of one race - Black or African American alone 2010 (complete count)
 # done POP280210D # Population of one race - American Indian and Alaska Native alone 2010 (complete count)
 # done POP320210D # Population of one race - Asian alone 2010 (complete count)
+
+
+# candidate values added in final_rep
+# Donald Trump votes
+# Donald Trump percent 	
+# Ted Cruz votes
+# Ted Cruz percent
+# Marco Rubio votes	
+# Marco Rubio percent
+# Ben Carson votes	
+# Ben Carson percent
+# John Kasich votes
+# John Kasich percent
+
+
+# candidate values added in final_dem
+# Hillary Clinton votes	
+# Hillary Clinton percent
+# Bernie Sanders votes	
+# Bernie Sanders percent
+
 
 
 if __name__ == "__main__":
