@@ -19,6 +19,7 @@ from pybrain.tools.validation import ModuleValidator
 import csv
 from numpy import sum,array, array_split, apply_along_axis, concatenate, ones, dot, delete, append, zeros, argmax
 from numpy.random import permutation
+import copy
 
 class Network(object):
 	def __init__(self, input_size, output_size, number_of_layers=3, size_of_hidden_layers=3, type_of_hidden_layer='sigmoid', net_bias=False):
