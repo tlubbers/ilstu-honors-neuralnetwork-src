@@ -109,7 +109,7 @@ class Network(object):
 			train_perms_idxs.pop(i)
 			temp_list = []
 			for train_perms_idx in train_perms_idxs:
-			temp_list.append(perms[ train_perms_idx ])
+				temp_list.append(perms[ train_perms_idx ])
 			train_idxs = concatenate(temp_list)
 
 			# determine test indices
@@ -122,9 +122,9 @@ class Network(object):
 			temp_trainer = copy.deepcopy(self.trainer)
 			temp_trainer .setData(train_ds)
 			if not max_epochs:
-			temp_trainer.train()
+				temp_trainer.train()
 			else:
-			temp_trainer.trainEpochs(max_epochs)
+				temp_trainer.trainEpochs(max_epochs)
 
 			# test
 			test_ds = SupervisedDataSet(indim, outdim)
