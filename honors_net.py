@@ -90,11 +90,11 @@ class Network(object):
 		# calls the validate() function in CrossValidator to return results
 		# print (ModuleValidator.MSE(module=self.net,dataset=self.ds)) 
 		# creates a crossvalidator instance
-		cv=CrossValidator(valfunc=self.MyCalidate, trainer=self.trainer, dataset=self.ds, n_folds=5) 
+		cv=CrossValidator(valfunc=self.MyValidate, trainer=self.trainer, dataset=self.ds, n_folds=5) 
 		# calls the validate() function in CrossValidator to return results
 		print (CrossValidator.validate(cv)) 
 
-	def MyCalidate(self, module, dataset):
+	def MyValidate(self, module, dataset):
 		""" Abstract validate function, that is heavily used by this class.
 		First, it calculates the module's output on the dataset.
 		In advance, it compares the output to the target values of the dataset
@@ -124,8 +124,9 @@ class Network(object):
 		print (output)
 
 		assert len(output) == len(target)
-		for i in range(len(output)):
-			print ("output: " + output[i] + " target: " + target[i])
+		 for i in range(len(output)):
+			print (output[i])
+			print (target[i])
 
 		n_correct = sum(output == target)
 		return float(n_correct) / float(len(output))
