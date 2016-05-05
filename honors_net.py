@@ -158,7 +158,7 @@ def main():
 	DemNetwork.prepare_trainer("final_dem.csv")
 	DemNetwork.train(False)
 	# DemNetwork.save("/Users/ducatirx8/Documents/AINeuralNetwork/ilstu-honors-neuralnetwork-src/demNetwork")
-	 DemNetwork.cross_vaildate()
+	DemNetwork.cross_vaildate()
 
 	# print(network.query([50756,37,14613,19347,5876,1947,49584,18,476,191,26030,7,9,96,31,175,10,10,65,37,60,4,88,2969,24132,8,116,3,367,1156,109,29938,9923,264,235,15980,17577,13.7,1310,15064,1261,979,811,835,1139,905,1089,964,931,1661,1950,2760,1317,825,605,256,14597,1553,53081,11.2,54571,10900,91.8,26569,28002,42154,9643,232,474]))
 
