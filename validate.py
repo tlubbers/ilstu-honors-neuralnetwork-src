@@ -39,6 +39,7 @@ def main():
 			print ("tock")
 		print ("tuck")
 		x += 10
+	output_file.close()
 
 if __name__ == "__main__":
 	main()
