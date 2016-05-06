@@ -11,15 +11,15 @@ def main():
 
 	filedir = sys.argv[1]
 	os = int(sys.argv[2])
-	output_file = open (filedir[:-4] + "_validations.csv", "wt")
+	output_file = open (filedir[:-4] + "_3validations.csv", "wt")
 	
 	funct_types = ['sigmoid','tanh']
 
 	print ("lets start")
 	sys.stdout.flush()
 	
-	x = 10
-	while x <= 30:
+	x = 70
+	while x <= 80:
 		print("yo")
 
 		for t in funct_types: 

@@ -6,12 +6,13 @@ from pybrain.supervised.trainers import BackpropTrainer
 from pybrain.tools.shortcuts import buildNetwork
 from pybrain.tools.datasettools import DataSetNormalizer
 # 
-from pybrain.tools.customxml.networkwriter import NetworkWriter
-from pybrain.tools.customxml.networkreader import NetworkReader
+# from pybrain.tools.customxml.networkwriter import NetworkWriter
+# from pybrain.tools.customxml.networkreader import NetworkReader
 # If you are getting no module found errors comment out the bottom 2 and try the above.
 
-# from pybrain.tools.xml.networkwriter import NetworkWriter
-# from pybrain.tools.xml.networkreader import NetworkReader
+from pybrain.tools.xml.networkwriter import NetworkWriter
+from pybrain.tools.xml.networkreader import NetworkReader
+
 
 from pybrain.tools.validation import CrossValidator
 from pybrain.tools.validation import CrossValidator
