@@ -32,10 +32,10 @@ def main(county, dirPath, isDemocrat):
 
 
 if __name__ == "__main__":
-	county = "Autauga"
-	state = "AL"
+	county = "Coconino"
+	state = "AZ"
 	countyState = county + ", " + state
-	dirToAllData = "/Users/ducatirx8/Documents/AINeuralNetwork/ilstu-honors-neuralnetwork-src/normalized_final_data.csv"
+	dirToAllData = "/Users/ducatirx8/Documents/AINeuralNetwork/ilstu-honors-neuralnetwork-src/final_data_nostates_normalized.csv"
 	main(countyState, dirToAllData , True)
 
 
