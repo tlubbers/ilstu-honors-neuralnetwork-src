@@ -25,8 +25,7 @@
 
       var options = {
         chart: {
-          title: 'Box Office Earnings in First Two Weeks of Opening',
-          subtitle: 'in millions of dollars (USD)'
+          title: 'Tanh activation function'
         },
         width: 900,
         height: 500,
@@ -40,6 +39,39 @@
       var chart = new google.charts.Line(document.getElementById('line_top_x'));
 
       chart.draw(data, options);
+
+      var data2 = new google.visualization.DataTable();
+      data2.addColumn('number', 'Epochs');
+      data2.addColumn('number', '1 Hidden Layer');
+      data2.addColumn('number', '2 Hidden Layers');
+      data2.addColumn('number', '3 Hidden Layers');
+
+      data2.addRows([
+        [10,  12.28, 13.33, 22.79],
+        [20,  8.76, 84.49, 27.88],
+        [30,  16.69, 76.29, 39.24],
+        [40,  9.14, 37.21, 49.63],
+        [50,  29.23, 25.61, 26.74],
+        [70,   30.11, 48.03,  35.00],
+        [90,  7.49, 6.96, 25.16]
+      ]);
+
+      var options2 = {
+        chart: {
+          title: 'Sigmoid activation function'
+        },
+        width: 900,
+        height: 500,
+        axes: {
+          x: {
+            0: {side: 'top'}
+          }
+        }
+      };
+
+      var chart2 = new google.charts.Line(document.getElementById('sigmoid'));
+
+      chart2.draw(data2, options2);
     }
   </script>
 </head>
