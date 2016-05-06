@@ -5,37 +5,50 @@
 import cgi
 import cgitb
 cgitb.enable()
-
-
-# Create instance of FieldStorage
+ready_to_predict = False
 form = cgi.FieldStorage()
 
-# Get data from fields
-county_name = form.getvalue('county_name')
-state_name  = form.getvalue('state_name')
-if form.getvalue('party'):
-	party = form.getvalue('party')
-else:
-	party = "No party yet"
-print ('''
-  <head><meta http-equiv="refresh" content="0;URL='main.html'" /></head>
-''')
 
-#print "Content-type:text/html\r\n\r\n"
-#print
-#"""<html>
-#	<head>
-#		<title>Predict county election results.</title>
-#	</head>
-#   <body>
-#"""
-#print "<h2>County, State, Party: %s %s %s</h2>" % (county_name, state_name, party)
-#print """<form action="index.py" method="POST">
-#		County:<input type="text" name="county_name"><br />
-#		State: <input type="text" name="state_name" /><br />
-#		<input type="radio" name="party" value="Republican" /> Republican
-#		<input type="radio" name="party" value="Democrat" /> Democrat
-#		<input type="submit" value="Submit" />
-#		</form>
-#"""
-#print "</body></html>"
+def main():
+  content = load_values()
+  if ready_to_predict:
+    delete_me = "Put your code here Julian"
+  print(content)
+
+
+def load_values():
+  global county
+  global state
+  global party
+  trump = 0.0
+  cruz = 0.0
+  kasich = 0.0
+  rubio = 0.0
+  carson = 0.0
+  sanders = 0.0
+  clinton = 0.0
+  county = form.getvalue('county', "")
+  state = form.getvalue('state', "")
+  party = form.getvalue('party', "")
+
+  if county != "" and state != "" and party != "":
+    ready_to_predict = True
+
+  return fileToStr('main.html').format(**locals())
+
+def fileToStr(fileName):
+    """Return a string containing the contents of the named file."""
+    fin = open(fileName);
+    contents = fin.read();
+    fin.close()
+    return contents
+
+
+try:   # NEW
+    print("Content-type: text/html\n\n")   # say generating html
+    main()
+except:
+    cgi.print_exception()
+
+
+
