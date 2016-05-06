@@ -12,6 +12,7 @@ from pybrain.tools.shortcuts import buildNetwork
 from pybrain.tools.xml.networkwriter import NetworkWriter
 from pybrain.tools.xml.networkreader import NetworkReader
 
+
 from pybrain.tools.validation import CrossValidator
 from pybrain.tools.validation import CrossValidator
 from pybrain.tools.validation import ModuleValidator
