@@ -6,12 +6,12 @@ from pybrain.supervised.trainers import BackpropTrainer
 from pybrain.tools.shortcuts import buildNetwork
 from pybrain.tools.datasettools import DataSetNormalizer
 # 
-# from pybrain.tools.customxml.networkwriter import NetworkWriter
-# from pybrain.tools.customxml.networkreader import NetworkReader
+from pybrain.tools.customxml.networkwriter import NetworkWriter
+from pybrain.tools.customxml.networkreader import NetworkReader
 # If you are getting no module found errors comment out the bottom 2 and try the above.
 
-from pybrain.tools.xml.networkwriter import NetworkWriter
-from pybrain.tools.xml.networkreader import NetworkReader
+# from pybrain.tools.xml.networkwriter import NetworkWriter
+# from pybrain.tools.xml.networkreader import NetworkReader
 
 
 from pybrain.tools.validation import CrossValidator
@@ -151,13 +151,16 @@ class Network(object):
 
 
 def main():
-	DemNetwork = Network(input_size=69, output_size=2,number_of_layers=3, net_bias=True)
-	RepNetwork = Network(input_size=69, output_size=5,number_of_layers=3, net_bias=True)
+	DemNetwork = Network(input_size=69, output_size=2,number_of_layers=3, net_bias=True, epochs = 100)
+	RepNetwork = Network(input_size=69, output_size=5,number_of_layers=3, net_bias=True, epochs = 100)
 
 	DemNetwork.prepare_trainer("dem-weka-normalized.csv")
+	RepNetwork.prepare_trainer("rep-weka-normalized.csv")
 
 	DemNetwork.train(False)
 	DemNetwork.save("/Users/ducatirx8/Documents/AINeuralNetwork/ilstu-honors-neuralnetwork-src/demNetwork")
+	RepNetwork.train(False)
+	RepNetwork.save("/Users/ducatirx8/Documents/AINeuralNetwork/ilstu-honors-neuralnetwork-src/repNetwork")
 	# DemNetwork.load("/Users/ducatirx8/Documents/AINeuralNetwork/ilstu-honors-neuralnetwork-src/demNetwork")
 	# DemNetwork.cross_vaildate()
 	# print (DemNetwork.cross_vaildate())
