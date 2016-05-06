@@ -153,11 +153,11 @@ class Network(object):
 def main():
 	DemNetwork = Network(input_size=69, output_size=2,number_of_layers=3, net_bias=True)
 	RepNetwork = Network(input_size=69, output_size=5,number_of_layers=3, net_bias=True)
-	
-	DemNetwork.prepare_trainer("final_demPyNormalize.csv")
-	
-	# DemNetwork.train(False)
-	# DemNetwork.save("/Users/ducatirx8/Documents/AINeuralNetwork/ilstu-honors-neuralnetwork-src/demNetwork")
+
+	DemNetwork.prepare_trainer("dem-weka-normalized.csv")
+
+	DemNetwork.train(False)
+	DemNetwork.save("/Users/ducatirx8/Documents/AINeuralNetwork/ilstu-honors-neuralnetwork-src/demNetwork")
 	# DemNetwork.load("/Users/ducatirx8/Documents/AINeuralNetwork/ilstu-honors-neuralnetwork-src/demNetwork")
 	# DemNetwork.cross_vaildate()
 	# print (DemNetwork.cross_vaildate())
