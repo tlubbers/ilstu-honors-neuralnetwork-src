@@ -34,7 +34,7 @@ def openData(filedir):
 				yCounter = 0
 			xCounter += 1
 
-		newfile = open("normalized_final_data.csv", 'wt')		
+		newfile = open("normalized_final_dataV2.csv", 'wt')
 
 		yCounter = 0
 		for row in allData:

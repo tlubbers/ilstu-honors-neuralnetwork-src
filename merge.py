@@ -4,11 +4,11 @@ def main():
 	rep = open("republicans.csv", "rt")
 	dem = open("democrats.csv", "rt")
 
-	final = open("normalized_final_data.csv", "rt")
+	final = open("final_data.csv", "rt")
 
-	final_rep = open ("final_rep.csv", "wt")
-	final_dem = open ("final_dem.csv", "wt")
-	final_unvoted = open ("final_unvoted.csv", "wt")
+	final_rep = open ("final_repPyNormalize.csv", "wt")
+	final_dem = open ("final_demPyNormalize.csv", "wt")
+	final_unvoted = open ("final_unvotedPyNormalize.csv", "wt")
 
 
 	final_reader = list(csv.reader(final, delimiter=','))
@@ -39,7 +39,7 @@ def main():
 				for s in mylist:
 					final_dem.write(','+s)
 				final_dem.write("\n")
-	
+
 		# not in either, not voted for yet 
 		if rep_switcher == False and dem_switcher == False:
 			final_unvoted.write("\"" + i[0] + "\"")
