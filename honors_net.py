@@ -65,10 +65,14 @@ class Network(object):
 		with open(filedir, 'rt') as csvfile:
 			reader = csv.reader(csvfile, delimiter=',')
 
+
 			for row in reader:
 				# format data
+
 				input_data = tuple(map(float, row[1:(self.input_size+1)]))
-				output_data = tuple(map(float, row[(self.input_size+1):(len(row)-1)]))
+				output_data = tuple(map(float, row[(self.input_size+1):((self.input_size+1+self.output_size))]))
+
+				# print (output_data)
 
 				# add to dataset
 				self.ds.addSample(input_data, output_data)

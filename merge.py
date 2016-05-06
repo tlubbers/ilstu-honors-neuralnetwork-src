@@ -27,7 +27,7 @@ def main():
 				final_rep.write("\"" + mylist[0] + "\"")
 				del mylist[0] 
 				for s in mylist:
-					final_rep.write(s+",")
+					final_rep.write(","+s)
 				final_rep.write("\n")
 		for k in dem_reader:
 			# this county has voted 
