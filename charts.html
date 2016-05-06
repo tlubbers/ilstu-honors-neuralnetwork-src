@@ -13,25 +13,47 @@
       data.addColumn('number', '2 Hidden Layers');
       data.addColumn('number', '3 Hidden Layers');
 
+
+<html>
+<head>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['line']});
+      google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'Epochs');
+      data.addColumn('number', '1 Hidden Layer');
+      data.addColumn('number', '2 Hidden Layers');
+      data.addColumn('number', '3 Hidden Layers');
+
       data.addRows([
-        [10,  12.28, 13.33, 22.79],
-        [20,  8.76, 84.49, 27.88],
-        [30,  16.69, 76.29, 39.24],
-        [40,  9.14, 37.21, 49.63],
-        [50,  29.23, 25.61, 26.74],
-        [70,   30.11, 48.03,  35.00],
-        [90,  7.49, 6.96, 25.16]
+      [10, 12.2850127225 , 13.337742826  , 22.7986214976 ],
+      [20, 8.76376500479 , 84.4947425739 , 27.8821541614 ],
+      [30, 16.6998885314 , 76.2955082596 , 39.2414439058 ],
+      [40, 9.14075385776 , 37.2157955929 , 49.6385018357 ],
+      [50, 29.2391721484 , 25.612679984  , 26.7458099937 ],
+      [60, 24.2039491624 , 24.0887094332 , 42.1103511392 ],
+      [70, 30.1115290976 , 48.0380399607 , 35.0028571007 ],
+      [80, 8.03168095742 , 28.963950766  , 18.7261367804 ],
+      [90, 7.49277274047 , 6.96030375469 , 25.1634202303 ],
+      [100,6.21914598278 , 65.0023648026 , 23.4735432376 ]
       ]);
 
       var options = {
         chart: {
           title: 'Tanh activation function'
         },
+        legend: {
+          position: 'top', 
+        },
         width: 900,
         height: 500,
         axes: {
           x: {
-            0: {side: 'top'}
+            10: {side: 'top'}
           }
         }
       };
@@ -47,19 +69,23 @@
       data2.addColumn('number', '3 Hidden Layers');
 
       data2.addRows([
-        [10,  12.28, 13.33, 22.79],
-        [20,  8.76, 84.49, 27.88],
-        [30,  16.69, 76.29, 39.24],
-        [40,  9.14, 37.21, 49.63],
-        [50,  29.23, 25.61, 26.74],
-        [70,   30.11, 48.03,  35.00],
-        [90,  7.49, 6.96, 25.16]
+        [10, 1.313738038   ,7.42486385131 , 5.90917582529],
+        [20, 30.5741502197 ,7.68818125897 , 4.00482115097],
+        [30, 2.68138142996 ,13.7870803549 , 15.4665065203],
+        [40, 4.19593184151 ,34.2488812555 , 7.2089978727 ],
+        [50, 7.96100747139 ,21.142516395  , 6.41911097478],
+        [60, 12.321551137  ,30.9363924662 , 13.5123390551],
+        [70, 10.0534963056 ,26.5821532766 , 18.3252565242],
+        [80, 12.9692888548 ,19.3744922615 , 3.43392888789],
+        [90, 9.41342286477 ,15.6913431617 , 30.2986639262],
+        [100,20.6819740576 ,17.5161409032 , 10.0622220677]
       ]);
 
       var options2 = {
         chart: {
           title: 'Sigmoid activation function'
         },
+        legend: { position: 'bottom' },
         width: 900,
         height: 500,
         axes: {
@@ -77,6 +103,36 @@
 </head>
 <body>
   <div id="line_top_x"></div>
+  <br/><hr><br/>
+  <div id="sigmoid">
+</body>
+</html>
+
+      var options2 = {
+        chart: {
+          title: 'Sigmoid activation function'
+        },
+        width: 900,
+        height: 500,
+        axes: {
+          x: {
+            10: {side: 'top'}
+          }
+        }
+      };
+
+      var chart2 = new google.charts.Line(document.getElementById('sigmoid'));
+
+      chart2.draw(data2, options2);
+    }
+  </script>
+</head>
+<body>
+  <div id="line_top_x"></div>
+
+  <br/>
+  <br/>
+
   <div id="sigmoid">
 </body>
 </html>
