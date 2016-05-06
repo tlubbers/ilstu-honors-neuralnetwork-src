@@ -1,64 +1,54 @@
-<!--
- Tyler Lubbers | Illinois State University 2016
--->
-<!DOCTYPE HTML>
 <html>
-	<head>
-		<title>Political Primary County Result Predictions Using Neural Networks</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-	</head>
-	<body>
-		<!-- Wrapper -->
-			<div id="wrapper">
-				<!-- Header -->
-					<header id="header">
-						<div class="inner">
-							<a href="index.html" class="logo">
+  <head>
+    <title>Political Primary County Result Predictions Using Neural Networks</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+    <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+  </head>
+  <body>
+    <!-- Wrapper -->
+      <div id="wrapper">
+        <!-- Header -->
+          <header id="header">
+            <div class="inner">
+              <a href="index.html" class="logo">
                 <span class="symbol"><img src="images/isu.png" alt="" /></span><span class="title">Ilstu Honors</span>
               </a>
-							<!-- Nav -->
-								<nav>
-									<ul>
-										<li><a href="#menu">Menu</a></li>
-									</ul>
-								</nav>
-						</div>
-					</header>
-				<!-- Menu -->
-					<nav id="menu">
-						<h2>Menu</h2>
-						<ul>
-							<li><a href="index.py">Home</a></li>
-							<li><a href="#">E-Report</a></li>
-							<li><a href="#">Illinois State University</a></li>
-						</ul>
-					</nav>
-				<!-- Main -->
-					<div id="main">
-						<div class="inner">
-							<header>
-								<h1>Political Primary Predictions By County</h1>
-								<p>This is the web interface for a polictical primary predicition tool built by three honors students from Illinois State University. PPP uses a Neural Network trained with county demographics from the US Census and the available 2016 primary results. If you're interested in the nerdy specifics, check out the <a href="#">e-report</a>.</p>
-							</header>
-							<section name = "form">
-								<h2>Check your county!</h2>
-  							<form method="post" action="index.py">
-                <div class = "row-uniform">
-                  <div class="6u 12u$(small)">
-                    <input type="radio" id="dem_id" name="party">
-                    <label for="dem_id">Democrat</label>
-                    <input type="radio" id="rep_id" name="party">
-                    <label for="rep_id">Republican</label>
+              <!-- Nav -->
+                <nav>
+                  <ul>
+                    <li><a href="#menu">Menu</a></li>
+                  </ul>
+                </nav>
+            </div>
+          </header>
+        <!-- Menu -->
+          <nav id="menu">
+            <h2>Menu</h2>
+            <ul>
+              <li><a href="index.py">Home</a></li>
+              <li><a href="https://tlubbers.gitbooks.io/political-primary-predictions-with-neural-network/content/">E-Report</a></li>
+              <li><a href="https://honors.illinoisstate.edu/">ILSTU Honors</a></li>
+            </ul>
+          </nav>
+        <!-- Main -->
+          <div id="main">
+            <div class="inner">
+              <header>
+                <h1>Political Primary Predictions By County</h1>
+                <p>This is the web interface for a polictical primary predicition tool built by three honors students from Illinois State University. PPP uses a Neural Network trained with county demographics from the US Census and the available 2016 primary results. If you're interested in the nerdy specifics, check out the <a href="https://tlubbers.gitbooks.io/political-primary-predictions-with-neural-network/content/">e-report</a>.</p>
+              </header>
+              <section name = "form" class="shimmed special">
+                <h2>Check results for your county!</h2>
+                <p>Enter your county name and state to see our predicted percentages for both party's primary candidates.</p>
+                <form method="post" action="index.py" target="_blank">
+                  <div class="12u$">
+                    <input type="text" name="county" id="county_id" placeholder="County Name" />
                   </div>
-									<div class="12u$">
-										<input type="text" name="county_name" id="county_id" placeholder="County Name" />
-									</div>
-									<div class="12u$">
+                  <div class="12u$">
                         <div class="select-wrapper">
                           <select name="state" id="state_id" placeholder="Choose a State">
                             <option selected = "selected" value='XX'>Choose a state</option>
@@ -116,12 +106,98 @@
                           </select>
                         </div>
                       </div>
-									<ul class="actions">
-										<li><input type="submit" value="Predict" class="special" /></li>
-									</ul>
-                </div>
-								</form>
-							</section>
+                  <ul class="actions">
+                    <li><input type="submit" value="View Results" class="special" /></li>
+                  </ul>
+                </form>
+
+              </section>
+              <section class="tiles shimmed">
+                <article class="style1">
+                  <span class="image">
+                    <img src="images/trump.jpg" alt="" />
+                  </span>
+                  <a href="#">
+                    <h2>{trump}%</h2>
+                    <h3>Trump</h3>
+                    <div class="content">
+                      <p></p>
+                    </div>
+                  </a>
+                </article>
+                <article class="style1">
+                  <span class="image">
+                    <img src="images/kasich.jpg" alt="" />
+                  </span>
+                  <a href="#">
+                    <h2>{kasich}%</h2>
+                    <h3>Kasich</h3>
+                    <div class="content">
+                      <p></p>
+                    </div>
+                  </a>
+                </article>
+                <article class="style1">
+                  <span class="image">
+                    <img src="images/cruz.jpg" alt="" />
+                  </span>
+                  <a href="#">
+                    <h2>{cruz}%</h2>
+                    <h3>Cruz</h3>
+                    <div class="content">
+                      <p></p>
+                    </div>
+                  </a>
+                </article>
+                <article class="style1">
+                  <span class="image">
+                    <img src="images/rubio.jpg" alt="" />
+                  </span>
+                  <a href="#">
+                    <h2>{rubio}%</h2>
+                    <h3>Rubio</h3>
+                    <div class="content">
+                      <p></p>
+                    </div>
+                  </a>
+                </article>
+                <article class="style1">
+                  <span class="image">
+                    <img src="images/carson.jpg" alt="" />
+                  </span>
+                  <a href="#">
+                    <h2>{carson}%</h2>
+                    <h3>Carson</h3>
+                    <div class="content">
+                      <p></p>
+                    </div>
+                  </a>
+                </article>
+                <article class="style5">
+                  <span class="image">
+                    <img src="images/clinton.jpg" alt="" />
+                  </span>
+                  <a href="#">
+                    <h2>{clinton}%</h2>
+                    <h3>Clinton</h3>
+                    <div class="content">
+                      <p></p>
+                    </div>
+                  </a>
+                </article>
+                <article class="style5">
+                  <span class="image">
+                    <img src="images/sanders.jpg" alt="" />
+                  </span>
+                  <a href="#">
+                    <h2>{sanders}%</h2>
+                    <h3>Sanders</h3>
+                    <div class="content">
+                      <p></p>
+                    </div>
+                  </a>
+                </article>
+              </section>
             </div>
           </div>
           <footer id="footer">
@@ -146,7 +222,7 @@
               <section>
                 <h2>Elsewhere</h2>
                 <ul class="icons">
-                  <li><a href="#" class="icon style2 fa-github"><span class="label">GitHub</span></a></li>
+                  <li><a href="https://github.com/tlubbers/ilstu-honors-neuralnetwork-src" class="icon style2 fa-github"><span class="label">GitHub</span></a></li>
                   <li><a href="#" class="icon style2 fa-phone"><span class="label">Phone</span></a></li>
                   <li><a href="#" class="icon style2 fa-envelope-o"><span class="label">Email</span></a></li>
                 </ul>
@@ -156,14 +232,12 @@
               </ul>
             </div>
           </footer>
-			</div>
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="assets/js/main.js"></script>
-
-	</body>
+      </div>
+    <!-- Scripts -->
+      <script src="assets/js/jquery.min.js"></script>
+      <script src="assets/js/skel.min.js"></script>
+      <script src="assets/js/util.js"></script>
+      <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+      <script src="assets/js/main.js"></script>
+  </body>
 </html>
-
