@@ -1,0 +1,50 @@
+<html>
+<head>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['line']});
+      google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'Epochs');
+      data.addColumn('number', '1 Hidden Layer');
+      data.addColumn('number', '2 Hidden Layers');
+      data.addColumn('number', '3 Hidden Layers');
+
+      data.addRows([
+        [10,  12.28, 13.33, 22.79],
+        [20,  8.76, 84.49, 27.88],
+        [30,  16.69, 76.29, 39.24],
+        [40,  9.14, 37.21, 49.63],
+        [50,  29.23, 25.61, 26.74],
+        [70,   30.11, 48.03,  35.00],
+        [90,  7.49, 6.96, 25.16]
+      ]);
+
+      var options = {
+        chart: {
+          title: 'Box Office Earnings in First Two Weeks of Opening',
+          subtitle: 'in millions of dollars (USD)'
+        },
+        width: 900,
+        height: 500,
+        axes: {
+          x: {
+            0: {side: 'top'}
+          }
+        }
+      };
+
+      var chart = new google.charts.Line(document.getElementById('line_top_x'));
+
+      chart.draw(data, options);
+    }
+  </script>
+</head>
+<body>
+  <div id="line_top_x"></div>
+  <div id="sigmoid">
+</body>
+</html>
