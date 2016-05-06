@@ -16,9 +16,10 @@ def main():
 	funct_types = ['sigmoid','tanh']
 
 	print ("lets start")
-
-	x = 100
-	while x <= 1000:
+	sys.stdout.flush()
+	
+	x = 10
+	while x <= 100:
 		print("yo")
 
 		for t in funct_types: 
@@ -37,7 +38,7 @@ def main():
 				sys.stdout.flush()
 			print ("tock")
 		print ("tuck")
-		x += 100
+		x += 10
 
 if __name__ == "__main__":
 	main()

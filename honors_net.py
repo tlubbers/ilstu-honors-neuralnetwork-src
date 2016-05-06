@@ -39,11 +39,11 @@ class Network(object):
 				self.net.addConnection(FullConnection(layers[i-1], layers[i]))
 			else:
 				if type_of_hidden_layer == 'linear':
-					layers.append(LinearLayer(output_size))
+					layers.append(LinearLayer((input_size + output_size) / 2))
 				elif type_of_hidden_layer == 'sigmoid':
-					layers.append(SigmoidLayer(output_size))
+					layers.append(SigmoidLayer((input_size + output_size) / 2))
 				elif type_of_hidden_layer == 'tanh':
-					layers.append(TanhLayer(output_size))	
+					layers.append(TanhLayer((input_size + output_size) / 2))	
 				self.net.addModule(layers[i])
 				self.net.addConnection(FullConnection(layers[i-1], layers[i]))
 
